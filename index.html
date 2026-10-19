@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c0c12">
+  <meta name="description" content="NovaFetch — a clean interface for viewing available media formats from supported social platforms.">
+  <title>NovaFetch — Media tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-violet"></div><div class="ambient ambient-cyan"></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="NovaFetch home">
+        <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 28V12l24 16V12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 7v12m-5-5 5 5 5-5" fill="none" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="brand-name">Nova<span>Fetch</span><small>MEDIA WORKSPACE</small></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="extract"><span class="nav-icon">⌁</span> Extract media</button>
+        <button class="nav-item" data-view="history"><span class="nav-icon">◷</span> Recent history <span class="nav-count" id="history-count">0</span></button>
+      </nav>
+      <div class="side-label side-label-spaced">PREFERENCES</div>
+      <nav class="side-nav" aria-label="Preferences">
+        <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span> Settings</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="api-status-card">
+          <div class="status-top"><span class="status-dot" id="side-status-dot"></span><span id="side-status-text">Checking API…</span></div>
+          <p>Backend connection status</p>
+          <button class="text-button" id="check-api-side">Check connection <span>↗</span></button>
+        </div>
+        <div class="sidebar-foot"><span class="tiny-orb"></span> Private workspace <span class="version">v1.0</span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-button menu-toggle" id="menu-toggle" aria-label="Open navigation">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><span class="crumb-slash">/</span><strong id="breadcrumb-current">Extract media</strong></div>
+        <div class="top-actions">
+          <div class="connection-pill"><span class="status-dot" id="top-status-dot"></span><span id="top-status-text">Checking API</span></div>
+          <button class="icon-button" id="settings-shortcut" title="Settings" aria-label="Settings">⚙</button>
+          <div class="avatar" title="NovaFetch">N</div>
+        </div>
+      </header>
+
+      <section class="view active-view" id="view-extract">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> YOUR MEDIA WORKSPACE</div>
+          <h1>Media, <span>made simple.</span></h1>
+          <p class="hero-subtitle">Explore available formats from your supported social links, all in one clean workspace.</p>
+        </div>
+
+        <section class="extract-card glass-panel">
+          <div class="card-topline"><div class="card-title-wrap"><span class="card-icon">↳</span><div><h2>Extract media</h2><p>Paste a public link to inspect its available formats.</p></div></div><span class="secure-tag"><span>⌑</span> HTTPS protected</span></div>
+          <div class="platform-row" aria-label="Supported platforms">
+            <span class="platform-label">SUPPORTED PLATFORMS</span>
+            <span class="platform-chip"><span class="platform-logo tiktok-logo">♪</span>TikTok</span>
+            <span class="platform-chip"><span class="platform-logo instagram-logo">◎</span>Instagram</span>
+            <span class="platform-chip"><span class="platform-logo facebook-logo">f</span>Facebook</span>
+          </div>
+          <form id="extract-form" novalidate>
+            <label class="field-label" for="media-url">MEDIA URL</label>
+            <div class="url-input-wrap">
+              <span class="url-icon">↗</span>
+              <input id="media-url" name="url" type="url" placeholder="Paste your TikTok, Instagram or Facebook URL…" autocomplete="url" required maxlength="2048">
+              <button class="clear-input" id="clear-url" type="button" aria-label="Clear URL" hidden>×</button>
+            </div>
+            <div class="form-meta"><span id="url-hint">Use a link you own or are authorized to access.</span><span id="url-counter">0 / 2048</span></div>
+            <button class="primary-button" id="extract-button" type="submit"><span class="button-spark">✦</span><span id="extract-button-label">Fetch available formats</span><span class="button-arrow">→</span></button>
+          </form>
+          <div class="privacy-note"><span class="privacy-icon">ⓘ</span><span>NovaFetch only displays formats returned by the API. Respect copyright and each platform’s terms. Private or restricted content may not be accessible.</span></div>
+        </section>
+
+        <div class="feature-strip">
+          <div class="feature-item"><span class="feature-symbol violet">◈</span><div><strong>Format clarity</strong><span>See available video & audio options</span></div></div>
+          <div class="feature-item"><span class="feature-symbol cyan">⌁</span><div><strong>Quick workflow</strong><span>Copy links in a single tap</span></div></div>
+          <div class="feature-item"><span class="feature-symbol violet">◷</span><div><strong>Recent activity</strong><span>Find your recent extractions</span></div></div>
+        </div>
+
+        <section class="results-section" id="results-section" hidden>
+          <div class="section-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> EXTRACTION RESULT</div><h2>Your media details</h2></div><button class="subtle-button" id="new-extraction">＋ New extraction</button></div>
+          <div id="result-content"></div>
+        </section>
+
+        <footer class="main-footer"><span>© 2026 NovaFetch</span><span>Built for clarity <span class="footer-heart">✦</span></span><a href="#" id="footer-settings">Settings</a></footer>
+      </section>
+
+      <section class="view" id="view-history">
+        <div class="page-heading"><div class="eyebrow"><span class="eyebrow-line"></span> YOUR WORKSPACE</div><h1>Recent <span>history.</span></h1><p>Recent extraction results saved in this browser only.</p></div>
+        <div class="history-toolbar"><div class="history-count-label"><span class="mini-dot"></span><span id="history-summary">0 saved items</span></div><button class="subtle-button danger-button" id="clear-history">Clear history</button></div>
+        <div id="history-list" class="history-list"></div>
+        <footer class="main-footer"><span>© 2026 NovaFetch</span><span>Stored locally on this device</span></footer>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="page-heading"><div class="eyebrow"><span class="eyebrow-line"></span> CONFIGURATION</div><h1>Workspace <span>settings.</span></h1><p>Connect the frontend to your deployed FastAPI backend.</p></div>
+        <section class="settings-card glass-panel">
+          <div class="settings-section-head"><span class="settings-icon">⌘</span><div><h2>API connection</h2><p>Use your Railway public domain, without an endpoint suffix.</p></div></div>
+          <form id="settings-form">
+            <label class="field-label" for="api-base">BACKEND BASE URL</label>
+            <input class="settings-input" id="api-base" type="url" placeholder="https://your-service.up.railway.app" autocomplete="url">
+            <p class="settings-help">NovaFetch appends <code>/api/extract</code> and <code>/api/health</code> automatically. HTTPS is recommended for deployed services.</p>
+            <div class="settings-actions"><button type="submit" class="primary-button compact-button">Save connection <span>→</span></button><button type="button" id="test-api" class="subtle-button">Test connection</button></div>
+          </form>
+          <div class="settings-divider"></div>
+          <div class="settings-section-head"><span class="settings-icon cyan-icon">◷</span><div><h2>Local history</h2><p>History is kept in this browser and is not uploaded to the API.</p></div></div>
+          <div class="setting-row"><div><strong>Save successful extractions</strong><span>Store titles, thumbnails and format metadata locally.</span></div><label class="switch"><input type="checkbox" id="history-enabled" checked><span class="switch-slider"></span></label></div>
+          <div class="setting-row"><div><strong>Show thumbnails</strong><span>Display source thumbnails in result cards.</span></div><label class="switch"><input type="checkbox" id="thumbnails-enabled" checked><span class="switch-slider"></span></label></div>
+          <div class="setting-row"><div><strong>Reduce motion</strong><span>Limit decorative animations and transitions.</span></div><label class="switch"><input type="checkbox" id="reduce-motion"><span class="switch-slider"></span></label></div>
+          <div class="settings-divider"></div>
+          <div class="settings-section-head"><span class="settings-icon">ⓘ</span><div><h2>About NovaFetch</h2><p>Frontend version 1.0 · FastAPI backend integration</p></div></div>
+          <div class="legal-box">Use this tool only for content you own or are legally authorized to access. This interface does not bypass private-account restrictions, DRM, or access controls. Direct media links may expire and some streams may not include audio.</div>
+        </section>
+        <footer class="main-footer"><span>© 2026 NovaFetch</span><span>Configuration stays in this browser</span></footer>
+      </section>
+    </main>
+  </div>
+  <div class="mobile-scrim" id="mobile-scrim"></div>
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <script src="app.js"></script>
+</body>
+</html>
